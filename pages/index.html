@@ -5,13 +5,72 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Battleship</title>
     <link rel="stylesheet" href="../styles/css/index.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Josefin+Sans:ital,wght@0,500;1,500&display=swap" rel="stylesheet">
 </head>
 <body>
   <div class="wrapper">
 
-    <header class="header"></header>
-    <main class="main"></main>
-    <footer class="footer"></footer>
+    <header class="header">
+    <div class="header__container">
+    <h1 class="header-logo">Battleship game</h1>
+    <ul class="header-menu">
+        <li class="header-li">
+         <a href="" class="header-link">How to play</a>
+         </li>            
+    </ul>
+          </div>
+    </header>
+
+
+    <main class="main">
+      <section class="game-lobby">
+        <div class="game-lobby__container">
+        <h2 class="game-lobby-title">
+          Create or Join game
+        </h2>
+        <form class="game-lobby-form">
+          <label for="username">Enter your username:</label>
+          <input type="text" id="username" class="game-lobby-username" required placeholder="username" autocomplete="off">
+          <p class="game-lobby-message" id="username-message"></p>
+
+          <div class="game-lobby-acess">
+            <div class="game-lobby-tabs">
+            <div class="game-lobby-tab tab-active"></div>
+            <button class="game-lobby-tablink" data-content="create-game-tab">Create game</button>
+            <button class="game-lobby-tablink"  data-content="join-game-tab">Join game</button>
+          </div>
+            <div class="game-lobby-tabcontent" id="create-game-tab">
+              <p class="game-lobby-id"></p>
+              <button class="game-lobby-id-button" id="create-id">Generate room ID</button>
+            </div>
+            <div class="game-lobby-tabcontent" id="join-game-tab">
+              <label for="gameId">Enter room ID</label>
+              <input type="text" id="gameId" placeholder="Room ID" autocomplete="off">
+              <p class="game-lobby-message" id="id-message"></p>
+            </div>
+          </div>
+
+          <button class="game-lobby-start-game" id="start-game">Start Game</button>
+          <p class="game-lobby-message" id="id-absence"></p>
+        </form>
+      </div>
+      </section>
+
+    </main>
+    <footer class="footer">
+      <div class="footer__container">
+      <div class="footer-column">
+      <h3>Battleship Game</h3>
+      <ul class="footer-menu">
+        <li class="footer-li">
+           <a href="" class="footer-link">How to play</a>
+           </li>
+             </ul>
+    </div>
+  </div>
+    </footer>
 
   </div>
 

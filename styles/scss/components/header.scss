@@ -1,0 +1,28 @@
+@use '../utils/vars.scss';
+
+.header {
+    background-color: vars.$background-color;
+
+    &__container {
+        display: flex;
+        align-items: center;
+        justify-content:space-between;
+    }
+
+    &-logo {
+    }
+
+    &-menu {
+        display: flex;
+        gap: 10px;
+        align-items: center;
+        justify-content: center;
+    }
+
+    &-li {
+    }
+
+    &-link {
+        }
+    }
+

@@ -1,0 +1,112 @@
+@use '../utils/vars.scss';
+
+* {
+    padding: 0;
+    margin: 0;
+    border: 0;
+}
+
+*,
+*:before,
+*:after {
+    -moz-box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+}
+
+:focus,
+:active {
+    outline: none;
+}
+
+
+footer,
+header,
+aside {
+    display: block;
+}
+
+html,
+body {
+    height: 100%;
+    width: 100%;
+    font-family: "Josefin Sans", sans-serif;
+    font-size: 16px;
+    color: vars.$primary-color;
+    -ms-text-size-adjust: 100%;
+    -moz-text-size-adjust: 100%;
+    -webkit-text-size-adjust: 100%;
+}
+
+
+ul,
+ol,
+li {
+    list-style: none;
+}
+
+img {
+    vertical-align: top;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    font-weight: 400;
+}
+
+
+// =========================================================================
+
+a {
+        color: vars.$primary-color;
+        text-decoration: none;
+        &:hover { 
+            color: vars.$secondary-color;
+            text-decoration: underline;
+            cursor: pointer;
+    }
+}
+
+label { 
+    display: block;
+}
+
+input {
+    padding: 5px;
+    border: 2px solid vars.$secondary-background-color;
+    &:focus {
+    background-color: lightblue;
+  }
+
+  &.error {
+    border: 2px solid red;
+  }
+}
+
+button {
+    padding: 5px 10px;
+    cursor: pointer;
+}
+
+
+// =========================================================================
+
+.wrapper {
+    display: flex;
+    min-height: 100%;
+    flex-direction: column;
+}
+
+.main {
+    flex: 1 1 auto;
+}
+
+[class*=__container] {
+    max-width: 1024px;
+    margin: 0 auto;
+    padding: 5px 15px;
+}

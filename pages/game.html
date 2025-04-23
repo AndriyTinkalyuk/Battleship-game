@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Battleship</title>
-    <link rel="stylesheet" href="../styles/css/index.css">
+    <link rel="stylesheet" href="../styles/css/game.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Josefin+Sans:ital,wght@0,500;1,500&display=swap" rel="stylesheet">
@@ -25,6 +25,18 @@
 
 
     <main class="main">
+      <h3 class="game-id" id="room-id"></h3>
+      <section class="boards__container">
+        <div class="board-item">
+          <p class="board-username" id="my-username"></p>
+        <div class="board" id="my-board"></div>
+        <button class="board-button" id="start-game-button">Ready!!</button>
+      </div>
+      <div class="board-item">
+        <p class="board-username" id="enemy-username">Enemy</p>
+        <div class="board" id="enemy-board"></div>
+      </div>
+      </section>
  
     </main>
     <footer class="footer">

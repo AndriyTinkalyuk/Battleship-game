@@ -37,7 +37,8 @@ function start() {
 
         if(games[gameId] && games[gameId].length === 2) {
             games[gameId] = games[gameId].filter(wsc => wsc.nickname !== ws.nickname);
-            games[gameId] = [...games[gameId, ws]]
+            games[gameId] = [...games[gameId], ws];
+
         }
     }
 
@@ -64,8 +65,9 @@ function start() {
                 case "shoot":
                     res = { type: "afterShootByMe", payload: params.payload }
                     break;    
-                case " checkshoot": 
+                case "checkshoot": 
                     res = {type: "isPerfectHit", payload: params.payload}
+                    break
                 default:
                     res = {type: "logout", payload: params.payload};
                     break;

@@ -14,13 +14,14 @@ const idAbsence = document.getElementById("id-absence");
 const usernameInput = document.getElementById("username");
 const idInput = document.getElementById("gameId");
 
-let idRoom;
+let gameId;
+let username;
 
 // EVENTS
 
 usernameInput.addEventListener("blur", () => { 
     usernameMessage.textContent = '';
-    let username = usernameInput.value.trim();
+     username = usernameInput.value.trim();
 
     usernameInput.classList.remove("error"); 
 
@@ -41,10 +42,10 @@ usernameInput.addEventListener("blur", () => {
 idInput.addEventListener("blur", () => {
     idMessage.textContent = '';
     idInput.classList.remove("error");
-    let idRoom = idInput.value.trim();
+    gameId = idInput.value.trim();
 
-    if(isValidUUID(idRoom)) {
-    localStorage.idRoom = idRoom;
+    if(isValidUUID(gameId)) {
+    localStorage.gameId = gameId;
     return true;   
     }
 
@@ -54,17 +55,54 @@ idInput.addEventListener("blur", () => {
 
 generateIdButton.addEventListener("click", (e) => { 
     e.preventDefault();
-    idRoom = crypto.randomUUID();
-    idBody.textContent = idRoom;
-    localStorage.idRoom = idRoom;
+    gameId = crypto.randomUUID();
+    idBody.textContent = gameId;
+    localStorage.gameId = gameId;
+    idInput.value = gameId ;
 })
 
 startGameButton.addEventListener("click", (e) => { 
     e.preventDefault();
-    if(localStorage.username && localStorage.idRoom) {
-        window.location.href = `game.html?roomId=${localStorage.idRoom}`;
+
+    username = usernameInput.value.trim();
+    gameId = idInput.value.trim();
+
+    usernameMessage.textContent = '';
+    idMessage.textContent = '';
+    idAbsence.textContent = '';
+
+    let valid = true;
+
+    if (username.length < 3) {
+        usernameMessage.textContent = '❌ Username must be more than 3 characters';
+        usernameInput.classList.add("error");
+        valid = false;
+    } else if(!isValidUsername(username)) {
+        usernameMessage.textContent = '❌ Username must contain the characters a-z, 0-9';
+        usernameInput.classList.add("error");
+        valid = false;
+    } else {
+        localStorage.username = username;
+        usernameInput.classList.remove("error");
     }
-})
+
+    if (!isValidUUID(gameId)) {
+        idMessage.textContent = '❌ Invalid Room ID. Please check format.';
+        idInput.classList.add("error");
+        valid = false;
+    } else {
+        localStorage.gameId = gameId;
+        idInput.classList.remove("error");
+    }
+
+
+    if (valid) {
+        window.location.href =  `./game.html?gameId=${gameId}`;
+    } else {
+        idAbsence.textContent = '❌ For start game you need a valid username and room ID!';
+    }
+});
+
 
 tabsAnimation(tabsLink, activeTab);
 

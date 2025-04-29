@@ -17,7 +17,7 @@
     &-form {
         margin-top: 15px;
         background-image: linear-gradient(to bottom right, vars.$background-color, vars.$secondary-background-color, vars.$background-color);
-        background-size: 50% 100%;
+        background-size: 65% 100%;
         background-repeat: no-repeat;
         background-position: center;
         display: flex;
@@ -62,9 +62,10 @@
         align-items: center;
         justify-content: center;
         flex-direction: column;
-        height: 70px;
+        padding: 10px;
 
         & button {
+            margin-bottom: 5px;
             background-color: #3d74e9;
             color: white;
 

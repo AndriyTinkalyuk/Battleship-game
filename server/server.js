@@ -4,6 +4,7 @@ import { WebSocketServer}  from 'ws';
 dotenv.config();
 
 const games = {};
+const gamesCountShips = {};
 const port = process.env.PORT || 8080;
 
 
@@ -17,7 +18,7 @@ function start() {
             const req = JSON.parse(message.toString());
             if (req.event == 'connect') {
                 ws.nickname = req.payload.username;
-                initGames(ws, req.payload.gameId)
+                initGames(ws, req.payload.gameId, req.payload.countShips)
             }
 
             broadcast(req);
@@ -25,7 +26,7 @@ function start() {
     })
 
 
-    function initGames(ws, gameId) {
+    function initGames(ws, gameId, countShips) {
         if(!games[gameId]) { 
             games[gameId] = [ws];
         }
@@ -40,6 +41,10 @@ function start() {
             games[gameId] = [...games[gameId], ws];
 
         }
+
+        if (countShips) {
+            gamesCountShips[gameId] = countShips;
+        }
     }
 
 
@@ -47,27 +52,30 @@ function start() {
     function broadcast(params) {
         let res; 
 
-        const {username, gameId} = params.payload;
+        const {username, gameId, countShips} = params.payload;
         games[gameId].forEach( (client) => {
             switch (params.event) {
                 case "connect":
                     res = {
                         type: "connectToPlay",
                         payload: { 
-                            canStart: games[gameId].length > 1, username
+                            canStart: games[gameId].length > 1, username , countShips: gamesCountShips[gameId]
                         }
                     };
                     break;
                 case "ready":
-                    res = {type: 'readyToPlay', payload: { canStart: games[gameId].length > 1, username }};
+                    res = {type: 'readyToPlay', payload: { canStart: games[gameId].length > 1, username}};
                     break;
                 
                 case "shoot":
-                    res = { type: "afterShootByMe", payload: params.payload }
+                    res = { type: "afterShootByMe", payload: params.payload };
                     break;    
                 case "checkshoot": 
-                    res = {type: "isPerfectHit", payload: params.payload}
+                    res = {type: "isPerfectHit", payload: params.payload};
                     break
+                case "endGame":
+                    res = {type: "playerWin",payload: params.payload};
+                    break;
                 default:
                     res = {type: "logout", payload: params.payload};
                     break;

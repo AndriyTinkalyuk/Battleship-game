@@ -17,7 +17,7 @@
     <h1 class="header-logo">Battleship game</h1>
     <ul class="header-menu">
         <li class="header-li">
-         <a href="" class="header-link">How to play</a>
+         <a href="" class="header-link" id="instruction-link">How to play</a>
          </li>            
     </ul>
           </div>
@@ -34,7 +34,6 @@
           <label for="username">Enter your username:</label>
           <input type="text" id="username" class="game-lobby-username" required placeholder="username" autocomplete="off">
           <p class="game-lobby-message" id="username-message"></p>
-
           <div class="game-lobby-acess">
             <div class="game-lobby-tabs">
             <div class="game-lobby-tab tab-active"></div>
@@ -44,6 +43,9 @@
             <div class="game-lobby-tabcontent" id="create-game-tab">
               <p class="game-lobby-id"></p>
               <button class="game-lobby-id-button" id="create-id">Generate room ID</button>
+              <label for="count-ships">Enter count of ships:</label>
+              <input type="number" id="count-ships" class="game-lobby-ships" required placeholder="Ships" autocomplete="off" min="1" max="15">
+              <p class="game-lobby-message" id="ships-message"></p>
             </div>
             <div class="game-lobby-tabcontent" id="join-game-tab">
               <label for="gameId">Enter room ID</label>
@@ -63,17 +65,47 @@
       <div class="footer__container">
       <div class="footer-column">
       <h3>Battleship Game</h3>
-      <ul class="footer-menu">
-        <li class="footer-li">
-           <a href="" class="footer-link">How to play</a>
-           </li>
-             </ul>
     </div>
   </div>
     </footer>
 
+    <div class="popup" id="instruction-popup">
+      <div class="popup-body">
+        <div><img src="../icons/icon-close.svg" alt="close" class="popup-close"></div>
+        <div class="popup-content">
+          <div class="popup-text">
+            <strong>Option 1: Create a New Room (New Room ID)</strong>
+            <ul>
+              <li>Enter your username in the <strong>"Username"</strong> field.</li>
+              <li>Click <strong>"Generate ID"</strong> to create a unique Room ID.</li>
+              <li>Click <strong>"Start Game"</strong> to proceed.</li>
+            </ul>
+            <p>After creating the room:</p>
+            <ul>
+              <li>You will be redirected to the game page.</li>
+              <li>The Room ID will be shown at the top of the screen.</li>
+              <li>Share this Room ID with another player using any convenient method (messenger, verbally, etc.).</li>
+            </ul>
+    
+            <strong>Option 2: Join an Existing Room (Enter Room ID)</strong>
+            <ul>
+              <li>Get the Room ID from another player.</li>
+              <li>Enter your username in the <strong>"Username"</strong> field.</li>
+              <li>Enter the received Room ID in the <strong>"Enter Room ID"</strong> field.</li>
+              <li>Click <strong>"Start Game"</strong> to join.</li>
+            </ul>
+            <p>After joining:</p>
+            <ul>
+              <li>You will be redirected to the game page, where you will see your board and your opponent's board.</li>
+            </ul>
+          </div>
+          <button class="popup-button">okay!</button>
+        </div>
+      </div>
+    </div>
+    
   </div>
 
-  <script src="../scripts/index.js"></script>
+  <script type="module" src="../scripts/index.js"></script>
 </body>
 </html>

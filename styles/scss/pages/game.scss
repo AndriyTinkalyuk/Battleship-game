@@ -13,6 +13,11 @@
     grid-template-columns: repeat(10, 30px);
     grid-template-rows: repeat(10, 30px);
     flex: 0 1 50%;
+
+    &.shoot {
+      border: 2px solid red;
+      box-shadow: 5px 5px 10px rgba(255, 0, 0, 0.503);
+    }
   }
 
   .cell {

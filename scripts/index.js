@@ -1,3 +1,4 @@
+import { popup } from './modules/popup.js'
 
 const tabsLink = [...document.querySelectorAll(".game-lobby-tablink")];
 const activeTab = document.querySelector(".tab-active");
@@ -14,10 +15,26 @@ const idAbsence = document.getElementById("id-absence");
 const usernameInput = document.getElementById("username");
 const idInput = document.getElementById("gameId");
 
+const instructionLink = document.getElementById("instruction-link");
+const instructionPopup = document.getElementById("instruction-popup");
+const instructionPopupButton = instructionPopup.querySelector("button");
+
+const countShipsInput = document.getElementById("count-ships");
+const countShipsMessage = document.getElementById("ships-message");
+
 let gameId;
 let username;
+let shipsToPlace; 
 
 // EVENTS
+
+popup(instructionLink, instructionPopup);
+
+instructionPopupButton.addEventListener("click", (e) => {
+    e.preventDefault();
+    instructionPopup.classList.remove("active");
+    document.body.classList.remove("lock");
+})
 
 usernameInput.addEventListener("blur", () => { 
     usernameMessage.textContent = '';
@@ -33,24 +50,22 @@ usernameInput.addEventListener("blur", () => {
     } else if(!isValidUsername(username)) {
         usernameMessage.textContent = '❌ Username must contain the characters a-z, 0-9';
         usernameInput.classList.add("error"); 
-    } else {
-        localStorage.username = username;
-    }
+    } 
 })
 
 
 idInput.addEventListener("blur", () => {
     idMessage.textContent = '';
     idInput.classList.remove("error");
-    gameId = idInput.value.trim();
+    let gameIdfromInput = idInput.value.trim();
 
-    if(isValidUUID(gameId)) {
-    localStorage.gameId = gameId;
-    return true;   
-    }
-
+    if(!isValidUUID(gameIdfromInput)) {
     idMessage.textContent = '❌ Invalid Room ID. Please check format.';
     idInput.classList.add("error");
+    return false;  
+    }
+
+    gameId = gameIdfromInput;
 })
 
 generateIdButton.addEventListener("click", (e) => { 
@@ -58,20 +73,21 @@ generateIdButton.addEventListener("click", (e) => {
     gameId = crypto.randomUUID();
     idBody.textContent = gameId;
     localStorage.gameId = gameId;
-    idInput.value = gameId ;
 })
 
 startGameButton.addEventListener("click", (e) => { 
     e.preventDefault();
 
     username = usernameInput.value.trim();
-    gameId = idInput.value.trim();
+    let gameIdfromInput = idInput.value.trim();
 
     usernameMessage.textContent = '';
     idMessage.textContent = '';
     idAbsence.textContent = '';
+    countShipsMessage.textContent = '';
 
     let valid = true;
+    let isCreateGame = document.getElementById("create-game-tab").style.display === 'flex';
 
     if (username.length < 3) {
         usernameMessage.textContent = '❌ Username must be more than 3 characters';
@@ -95,6 +111,19 @@ startGameButton.addEventListener("click", (e) => {
         idInput.classList.remove("error");
     }
 
+    if (isCreateGame) {
+        let countShips = Number(countShipsInput.value.trim())
+    if (countShips < 0  || countShips > 15 || countShips === 0) {
+        countShipsMessage.textContent = '❌ Invalid value. Please enter value from 1 to 15';
+        countShipsInput.classList.add("error");
+        valid = false;
+    } else {
+        localStorage.shipsToPlace = countShips;
+        countShipsInput.classList.remove("error");
+    } 
+    } else {
+        localStorage.removeItem(shipsToPlace);
+    }
 
     if (valid) {
         window.location.href =  `./game.html?gameId=${gameId}`;
